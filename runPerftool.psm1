@@ -474,16 +474,19 @@ Function ProcessToolCommands{
 
                 Get-ChildItem -Path $toolpath
                 
-                Invoke-Command -Session $recvPSSession -ScriptBlock { who | Write-Output "$USER"}
-                Invoke-Command -Session $recvPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep r}
+                Invoke-Command -Session $recvPSSession -ScriptBlock { Write-Output "$USER"}
+                Invoke-Command -Session $recvPSSession -ScriptBlock { who }
+                Invoke-Command -Session $recvPSSession -ScriptBlock { whoami }
+                Invoke-Command -Session $recvPSSession -ScriptBlock { w }
+                Invoke-Command -Session $recvPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep rc}
                 Copy-Item -Path "$toolpath/rc.local" -Destination "/etc/rc.local" -ToSession $sendPSSession
-                Invoke-Command -Session $recvPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep r}
+                Invoke-Command -Session $recvPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep rc}
 
                 
-                Invoke-Command -Session $sendPSSession -ScriptBlock { who | Write-Output "$USER"}
-                Invoke-Command -Session $sendPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep r}
+                Invoke-Command -Session $sendPSSession -ScriptBlock { Write-Output "$USER"}
+                Invoke-Command -Session $sendPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep rc}
                 Copy-Item -Path "$toolpath/rc.local" -Destination "/etc/rc.local" -ToSession $recvPSSession
-                Invoke-Command -Session $sendPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep r}
+                Invoke-Command -Session $sendPSSession -ScriptBlock { Get-ChildItem -Path /etc/ | grep rc}
 
                 Invoke-Command -Session $recvPSSession -ScriptBlock { "`n*   soft    nofile  1048575 `n*   hard    nofile  1048575 " >> /etc/security/limits.conf} 
                 Invoke-Command -Session $sendPSSession -ScriptBlock { "`n*   soft    nofile  1048575 `n*   hard    nofile  1048575 " >> /etc/security/limits.conf} 
