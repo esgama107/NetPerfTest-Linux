@@ -271,15 +271,18 @@ Function ProcessCommands{
 
     [PSCredential] $recvIPCreds = New-Object System.Management.Automation.PSCredential($DestIpUserName, $DestIpPassword)
 
+    <#
     if (Test-Path -Path "$commandsDir\lagscope") {
         LogWrite "Processing lagscope commands for Linux" $true
         ProcessToolCommands -PassAuth:$PassAuth -RecvKeyFilePath $DestIpKeyFile -SendKeyFilePath $SrcIpKeyFile -Toolname "lagscope" -RecvComputerName $recvComputerName -RecvComputerCreds $recvIPCreds -SendComputerName $sendComputerName -SendComputerCreds $sendIPCreds -TestUserName $TestUserName -CommandsDir $CommandsDir -Bcleanup $Bcleanup -BZip $ZipResults -TimeoutValueBetweenCommandPairs $TimeoutValueInSeconds -PollTimeInSeconds $PollTimeInSeconds -ListeningPort $ListeningPort -FirewallPortMin $FirewallPortMin -FirewallPortMax $FirewallPortMax -RecvDir $recvDir -SendDir $sendDir
     }
-
+    #>
+    <#
     if (Test-Path -Path "$commandsDir\ntttcp") {
         LogWrite "Processing ntttcp commands for Linux" $true
         ProcessToolCommands -PassAuth $PassAuth -RecvKeyFilePath $DestIpKeyFile -SendKeyFilePath $SrcIpKeyFile -Toolname "ntttcp" -RecvComputerName $recvComputerName -RecvComputerCreds $recvIPCreds -SendComputerName $sendComputerName -SendComputerCreds $sendIPCreds -TestUserName $TestUserName -CommandsDir $CommandsDir -Bcleanup $Bcleanup -BZip $ZipResults -TimeoutValueBetweenCommandPairs $TimeoutValueInSeconds -PollTimeInSeconds $PollTimeInSeconds -ListeningPort $ListeningPort -FirewallPortMin $FirewallPortMin -FirewallPortMax $FirewallPortMax -RecvDir $recvDir -SendDir $sendDir
     }
+    #>
 
     if (Test-Path -Path "$commandsDir\ncps") {
         LogWrite "Processing ncps commands for Linux" $true
